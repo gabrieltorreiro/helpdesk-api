@@ -1,14 +1,14 @@
 from fastapi import APIRouter, Depends, HTTPException
+from pwdlib import PasswordHash
 from sqlalchemy.orm import Session
 
 from app.database.connection import SessionLocal
 from app.models.user import User
 from app.schemas.user import UserCreate, UserResponse
-from passlib.context import CryptContext
 
 router = APIRouter(prefix="/users", tags=["Users"])
 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+pwd_context = PasswordHash.recommended()
 
 
 def get_db():
