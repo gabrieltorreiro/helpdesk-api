@@ -10,7 +10,6 @@ from app.core.auth import get_current_user  # você já deve ter isso
 router = APIRouter(prefix="/tickets", tags=["Tickets"])
 
 
-# Dependência de banco
 def get_db():
     db = SessionLocal()
     try:
@@ -19,7 +18,6 @@ def get_db():
         db.close()
 
 
-# 🔹 Criar ticket
 @router.post("/", response_model=TicketResponse)
 def create_ticket(
     ticket: TicketCreate,
@@ -29,7 +27,6 @@ def create_ticket(
     return ticket_service.create_ticket(db, current_user.id, ticket)
 
 
-# 🔹 Listar tickets
 @router.get("/", response_model=List[TicketResponse])
 def list_tickets(
     skip: int = 0,
@@ -39,7 +36,6 @@ def list_tickets(
     return ticket_service.get_tickets(db, skip, limit)
 
 
-# 🔹 Buscar por ID
 @router.get("/{ticket_id}", response_model=TicketResponse)
 def get_ticket(ticket_id: int, db: Session = Depends(get_db)):
     ticket = ticket_service.get_ticket_by_id(db, ticket_id)
@@ -50,7 +46,6 @@ def get_ticket(ticket_id: int, db: Session = Depends(get_db)):
     return ticket
 
 
-# 🔹 Atualizar status
 @router.patch("/{ticket_id}")
 def update_status(
     ticket_id: int,
