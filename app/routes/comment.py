@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 from app.schemas.comment import CommentCreate, CommentResponse
 from app.services.comment_service import create_comment, get_comments_by_ticket
 from app.database.connection import SessionLocal
+from app.core.permissions import require_role
 
 from app.core.auth import get_current_user  
 
@@ -23,7 +24,7 @@ def add_comment(
     ticket_id: int,
     comment: CommentCreate,
     db: Session = Depends(get_db),
-    current_user = Depends(get_current_user)
+    current_user = Depends(require_role(["technician", "admin"]))
 ):
     return create_comment(
         db=db,
@@ -37,6 +38,6 @@ def add_comment(
 def list_comments(
     ticket_id: int,
     db: Session = Depends(get_db),
-    current_user = Depends(get_current_user)
+    current_user = Depends(require_role(["technician", "admin"]))
 ):
     return get_comments_by_ticket(db, ticket_id)

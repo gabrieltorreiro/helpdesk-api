@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from typing import List
 
+from app.core.permissions import require_role
 from app.database.connection import SessionLocal
 from app.schemas.ticket import TicketCreate, TicketResponse
 from app.services import ticket_service
@@ -31,13 +32,18 @@ def create_ticket(
 def list_tickets(
     skip: int = 0,
     limit: int = 10,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_user = Depends(require_role(["technician", "admin"]))
 ):
     return ticket_service.get_tickets(db, skip, limit)
 
 
 @router.get("/{ticket_id}", response_model=TicketResponse)
-def get_ticket(ticket_id: int, db: Session = Depends(get_db)):
+def get_ticket(
+    ticket_id: int,
+    db: Session = Depends(get_db),
+    current_user = Depends(require_role(["technician", "admin"]))
+):
     ticket = ticket_service.get_ticket_by_id(db, ticket_id)
 
     if not ticket:
@@ -51,7 +57,7 @@ def update_status(
     ticket_id: int,
     status: str,
     db: Session = Depends(get_db),
-    current_user = Depends(get_current_user)
+    current_user = Depends(require_role(["technician", "admin"]))
 ):
     ticket = ticket_service.update_ticket_status(db, ticket_id, status)
 
