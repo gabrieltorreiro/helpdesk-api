@@ -4,7 +4,7 @@ A backend API for managing technical support tickets. This project simulates a r
 
 ---
 
-## 🚀 Features
+## Features
 
 * User registration and authentication (JWT)
 * Role-based access control (User, Technician, Admin)
@@ -17,7 +17,7 @@ A backend API for managing technical support tickets. This project simulates a r
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 * Python
 * FastAPI
@@ -27,7 +27,7 @@ A backend API for managing technical support tickets. This project simulates a r
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
 ```
 app/
@@ -42,7 +42,7 @@ app/
 
 ---
 
-## ⚙️ Setup Instructions
+## Setup Instructions
 
 ### 1. Clone the repository
 
@@ -82,7 +82,7 @@ uvicorn app.main:app --reload
 
 ---
 
-## 📖 API Documentation
+## API Documentation
 
 Interactive docs available at:
 
@@ -92,7 +92,7 @@ http://localhost:8000/docs
 
 ---
 
-## 🔐 Authentication
+## Authentication
 
 This API uses JWT for authentication.
 
@@ -104,7 +104,7 @@ Authorization: Bearer <your_token>
 
 ---
 
-## 🧪 Example Endpoints
+## Example Endpoints
 
 ### Create Ticket
 
@@ -126,7 +126,7 @@ PATCH /tickets/{id}
 
 ---
 
-## 🎯 Purpose
+## Purpose
 
 This project was built to demonstrate backend development skills, including:
 
@@ -137,7 +137,7 @@ This project was built to demonstrate backend development skills, including:
 
 ---
 
-## 📌 Future Improvements
+## Future Improvements
 
 * Unit and integration tests
 * Docker support
